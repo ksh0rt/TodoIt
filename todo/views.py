@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from .forms import TodoForm
 from .models import Todo
+from django.utils import timezone
 
 def signupuser(request):
     if request.method == 'GET':
@@ -57,7 +58,7 @@ def createtodo(request):
             return render(request, 'todo/createtodo.html', {'form':TodoForm(), 'error':'Bad data passed in'})
 
 def viewtodo(request, todo_pk):
-    currenttodo = get_object_or_404(Todo, pk=todo_pk)
+    currenttodo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'GET':
         form = TodoForm(instance=currenttodo)
         return render(request, 'todo/viewtodo.html', {'todo':currenttodo, 'form':form})
@@ -68,3 +69,16 @@ def viewtodo(request, todo_pk):
             return redirect('currenttodos')
         except ValueError:
             return render(request, 'todo/viewtodo.html', {'todo':currenttodo, 'form':form, 'error':'Bad info'})
+
+def completetodo(request, todo_pk):
+    currenttodo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+    if request.method == 'POST':
+        currenttodo.datecompleted = timezone.now()
+        currenttodo.save()
+        return redirect('currenttodos')
+
+def deletetodo(request, todo_pk):
+    currenttodo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+    if request.method == 'POST':
+        currenttodo.delete()
+        return redirect('currenttodos')

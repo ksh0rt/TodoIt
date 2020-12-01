@@ -1,13 +1,40 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-<h1>Sign Up</h1>
+
 
 <h2>{{ error }}</h2>
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" name="button">Sign up</button>
-</form>
+
+<div class="container text-center" id="container">
+  <div class="col-lg-8 mr-auto ml-auto" id="column">
+    <h1>Sign Up</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <!-- {{ form.as_p }} -->
+      <div class="row" style="padding-top: 20px; padding-right: 10px;">
+        <div class="col-lg-8 mr-auto ml-auto"">
+          {{ form.username.label }} {{ form.username }}
+        </div>
+      </div>
+      <div class="row" style="padding-top: 20px;">
+        <div class="col-lg-8 mr-auto ml-auto"">
+          {{ form.password1.label }} {{ form.password1 }}
+        </div>
+      </div>
+      <div class="row" style="padding-top: 20px; padding-left: 10px;">
+        <div class="col-lg-8 mr-auto ml-auto"">
+          Confirm {{ form.password2 }}
+        </div>
+      </div>
+      <div class="row" style="padding-top: 20px;">
+        <div class="col-lg-8 mr-auto ml-auto"">
+          <button type="submit" name="button">Sign up</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 {% endblock %}

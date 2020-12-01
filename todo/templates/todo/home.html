@@ -1,5 +1,28 @@
 {% extends 'todo/base.html' %}
-
+{% load static %}
 {% block content %}
-Home
+<title>Todo It</title>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'todo/home.css' %}">
+</head>
+
+  {% if user.is_authenticated %}
+  <div class="row justify-content-center">
+    <h1 id="title">Welcome {{user.username}}</h1>
+  </div>
+  {% else %}
+  <div class="container text-center" id="container">
+    <div class="col-lg-8 mr-auto ml-auto" id="column">
+      <h1 id="title">Todo It</h1>
+      <p id="welcome">A tool to create a personalized task list. Sign up or login to start creating Todo's and keep your busy life organized </p>
+      <a href="{% url 'signupuser' %}" id="homelink">Sign up</a>
+      <div class="row" style="padding-top: 20px;">
+        <div class="col-lg-8 mr-auto ml-auto"">
+          <a href="{% url 'loginuser' %}" id="homelink">Log in</a>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+{% endif %}
 {% endblock %}

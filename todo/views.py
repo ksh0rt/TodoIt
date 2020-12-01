@@ -20,6 +20,7 @@ def signupuser(request):
                 return redirect('currenttodos')
             except IntegrityError:
                 return render(request, 'todo/signupuser.html', {'form':UserCreationForm(), 'error':'Username already taken'})
+        else:
             return render(request, 'todo/signupuser.html', {'form':UserCreationForm(), 'error':'Passwords do not match'})
 
 def currenttodos(request):

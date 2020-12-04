@@ -1,11 +1,26 @@
 {% extends 'todo/base.html' %}
-
+{% load static %}
 {% block content %}
 
-<ul>
-  {% for todo in todos %}
-  <li><a href="{% url 'viewtodo' todo.id %}">{{ todo.title }} {% if todo.memo %} - {{ todo.memo }}{% endif %}</a></li>
-  {% endfor %}
-</ul>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'todo/create.css' %}">
+</head>
+
+<div class="container text-center" id="container">
+  <div class="col-lg-8 mr-auto ml-auto" id="column">
+    {% if message %}
+      <h1>{{ message }}</h1>
+      <br>
+      <a href="{% url 'createtodo' %}" id="createlink">Add todo</a>
+      {% else %}
+      <ul>
+        {% for todo in todos %}
+        <li><a href="{% url 'viewtodo' todo.id %}">{{ todo.title }} {% if todo.memo %} - {{ todo.memo }}{% endif %}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+  </div>
+</div>
+
 
 {% endblock %}

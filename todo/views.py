@@ -7,6 +7,7 @@ from .forms import TodoForm
 from .models import Todo
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+import pdb
 
 def signupuser(request):
     if request.method == 'GET':
@@ -25,7 +26,11 @@ def signupuser(request):
 
 def currenttodos(request):
     todos = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'todo/currenttodos.html', {'todos':todos})
+    if not todos:
+        return render(request, 'todo/currenttodos.html', {'message':'You\'re all caught up! Add some more todos below.'})
+    else:
+        return render(request, 'todo/currenttodos.html', {'todos':todos})
+
 
 @login_required
 def logoutuser(request):

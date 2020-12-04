@@ -1,0 +1,15 @@
+#createlink:link, #createlink:visited {
+  background-color: black;
+  color: white;
+  border-radius: 25px;
+  border: 4px solid black;
+  padding: 0px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#createlink:hover, #createlink:active {
+  background-color: #007bff;
+  color: black;
+}
